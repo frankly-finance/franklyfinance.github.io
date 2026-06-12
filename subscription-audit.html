@@ -6,25 +6,30 @@
 <title>Subscription Audit Checklist — Frankly Finance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:              #f7f4ef;
-  --surface:         #ffffff;
-  --surface-2:       #f0ece5;
-  --border:          #ddd6cc;
-  --border-strong:   #c8bfb4;
-  --text-primary:    #1a1208;
-  --text-secondary:  #6b5e4e;
-  --text-muted:      #a09080;
-  --accent:          #c41a1a;
-  --accent-bg:       #fef2f2;
-  --accent-border:   #f5c0c0;
-  --green:           #1a5c38;
-  --green-bg:        #f0f7f3;
-  --green-border:    #b8ddc8;
+  --bg:              #0d0d0d;
+  --surface:         #161616;
+  --surface-2:       #1e1e1e;
+  --surface-3:       #252525;
+  --border:          #2a2a2a;
+  --border-mid:      #383838;
+  --border-strong:   #4a4a4a;
+  --text-primary:    #f0ece4;
+  --text-secondary:  #a09888;
+  --text-muted:      #5a5550;
+  --accent:          #e8a838;
+  --accent-dim:      rgba(232,168,56,0.12);
+  --accent-border:   rgba(232,168,56,0.3);
+  --green:           #4caf7d;
+  --green-dim:       rgba(76,175,125,0.1);
+  --green-border:    rgba(76,175,125,0.3);
+  --red:             #e05757;
+  --red-dim:         rgba(224,87,87,0.08);
+  --red-border:      rgba(224,87,87,0.25);
   --font-display:    'DM Serif Display', Georgia, serif;
   --font-body:       'DM Sans', system-ui, sans-serif;
   --font-mono:       'JetBrains Mono', monospace;
@@ -40,33 +45,37 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
-  padding-bottom: 80px;
+  padding-bottom: 96px;
   -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  max-width: 780px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 40px;
 }
 
 /* ── HEADER ── */
 .site-header {
-  padding: 52px 0 36px;
-  border-bottom: 2px solid var(--text-primary);
-  margin-bottom: 44px;
+  padding: 64px 0 0;
+  margin-bottom: 0;
+}
+
+.header-inner {
+  border-bottom: 1px solid var(--border-mid);
+  padding-bottom: 48px;
 }
 
 .header-kicker {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
 .kicker-line {
   height: 1px;
-  width: 32px;
+  width: 40px;
   background: var(--accent);
 }
 
@@ -74,19 +83,25 @@ body {
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
+.header-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+}
+
 h1 {
   font-family: var(--font-display);
-  font-size: clamp(34px, 5vw, 52px);
+  font-size: clamp(40px, 5.5vw, 68px);
   font-weight: 400;
-  line-height: 1.08;
+  line-height: 1.0;
   color: var(--text-primary);
-  margin-bottom: 18px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 h1 em {
@@ -97,55 +112,63 @@ h1 em {
 .header-intro {
   font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.75;
-  max-width: 560px;
+  line-height: 1.8;
   font-weight: 300;
+  align-self: end;
+  padding-bottom: 4px;
 }
 
-/* ── SCORE BAR ── */
-.score-bar {
+/* ── SCORE STRIP ── */
+.score-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 48px;
+  border-bottom: 1px solid var(--border-mid);
+  margin-bottom: 56px;
 }
 
-.score-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 18px 20px;
-  transition: border-color 250ms ease;
+.score-cell {
+  padding: 32px 0 32px;
+  border-right: 1px solid var(--border);
+  transition: background 200ms ease;
 }
 
-.score-card.hot { border-color: var(--accent); }
+.score-cell:last-child { border-right: none; }
+.score-cell:first-child { padding-left: 0; }
+.score-cell:nth-child(2) { padding-left: 32px; }
+.score-cell:last-child { padding-left: 32px; }
+
+.score-cell.hot { background: transparent; }
 
 .score-label {
   font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .score-value {
   font-family: var(--font-mono);
-  font-size: 24px;
+  font-size: 36px;
   font-weight: 500;
   color: var(--text-primary);
   transition: color 300ms ease;
+  line-height: 1;
 }
 
-.score-value.live { color: var(--accent); }
-.score-value.saved { color: var(--green); }
+.score-value.live { color: var(--text-primary); }
+.score-value.live.active { color: var(--accent); opacity: 1; }
+.score-value.saved { color: var(--text-secondary); }
+.score-value.saved.active { color: var(--green); opacity: 1; }
 
 /* ── SECTIONS ── */
 .audit-section {
-  margin-bottom: 36px;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border);
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
 .audit-section.visible {
@@ -158,84 +181,95 @@ h1 em {
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1.5px solid var(--text-primary);
-  margin-bottom: 2px;
+  padding: 28px 0 20px;
+  cursor: default;
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .section-subtotal {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   white-space: nowrap;
 }
 
+.section-subtotal.has-value {
+  color: var(--accent);
+}
+
 .section-note {
-  font-size: 12px;
-  color: var(--text-muted);
+  font-size: 13px;
+  color: var(--text-secondary);
   font-style: italic;
-  padding: 8px 0 4px;
-  border-bottom: 0.5px solid var(--border);
-  margin-bottom: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
 }
 
 /* ── ROWS ── */
 .sub-row {
   display: grid;
-  grid-template-columns: 120px 1fr 96px;
-  gap: 16px;
+  grid-template-columns: 140px 1fr 110px;
+  gap: 24px;
   align-items: start;
-  padding: 13px 0;
-  border-bottom: 0.5px solid var(--border);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
   transition: background 150ms ease;
-  border-radius: 3px;
+  margin: 0 -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 4px;
 }
 
 .sub-row:last-child { border-bottom: none; }
-.sub-row:hover { background: rgba(26,18,8,0.025); }
-.sub-row.is-cancelled { opacity: 0.55; }
-.sub-row.is-kept { background: rgba(26,92,56,0.04); }
+.sub-row:hover { background: var(--surface); }
+.sub-row.is-cancelled { opacity: 0.4; }
+.sub-row.is-kept { background: var(--green-dim); }
+.sub-row.is-cancelled.is-kept { background: transparent; }
 
 .check-col {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding-top: 3px;
+  gap: 10px;
+  padding-top: 4px;
 }
 
 .check-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   cursor: pointer;
 }
 
 .check-row label {
   font-size: 12px;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   cursor: pointer;
   user-select: none;
   transition: color 150ms ease;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 10px;
 }
 
-.check-row:hover label { color: var(--text-primary); }
+.check-row:hover label { color: var(--text-secondary); }
 
 .check-row input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
-  border: 1.5px solid var(--border-strong);
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-strong);
   border-radius: 3px;
-  background: var(--surface);
+  background: transparent;
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
@@ -249,8 +283,8 @@ h1 em {
 }
 
 .check-row.cancel-row input[type="checkbox"]:checked {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--red);
+  border-color: var(--red);
 }
 
 .check-row.keep-row input[type="checkbox"]:checked {
@@ -265,7 +299,7 @@ h1 em {
   left: 4px;
   width: 5px;
   height: 9px;
-  border: 2px solid white;
+  border: 2px solid #0d0d0d;
   border-top: none;
   border-left: none;
   transform: rotate(45deg);
@@ -274,17 +308,17 @@ h1 em {
 .sub-info { min-width: 0; }
 
 .sub-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--text-primary);
-  margin-bottom: 3px;
+  margin-bottom: 5px;
   line-height: 1.35;
 }
 
 .sub-tip {
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.6;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
   font-weight: 300;
 }
 
@@ -292,16 +326,16 @@ h1 em {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 5px;
+  gap: 7px;
 }
 
 .price-input {
-  width: 90px;
+  width: 106px;
   background: var(--surface-2);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-mid);
   border-radius: 4px;
-  padding: 7px 10px;
-  font-size: 13px;
+  padding: 9px 12px;
+  font-size: 14px;
   font-family: var(--font-mono);
   color: var(--text-primary);
   text-align: right;
@@ -310,9 +344,9 @@ h1 em {
 }
 
 .price-input:focus {
-  border-color: var(--text-primary);
-  background: var(--surface);
-  box-shadow: 0 0 0 3px rgba(26,18,8,0.08);
+  border-color: var(--accent);
+  background: var(--surface-3);
+  box-shadow: 0 0 0 3px rgba(232,168,56,0.1);
 }
 
 .price-input::placeholder { color: var(--text-muted); }
@@ -328,15 +362,15 @@ h1 em {
 
 /* ── FORGOTTEN ── */
 .forgotten-block {
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-border);
-  border-left: 3px solid var(--accent);
+  border: 1px solid var(--red-border);
+  border-left: 3px solid var(--red);
   border-radius: 4px;
-  padding: 22px 26px;
-  margin-bottom: 44px;
+  padding: 32px 36px;
+  margin: 56px 0;
+  background: var(--red-dim);
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
 .forgotten-block.visible { opacity: 1; transform: translateY(0); }
@@ -345,183 +379,137 @@ h1 em {
   font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
-  color: var(--accent);
-  margin-bottom: 6px;
+  letter-spacing: 0.14em;
+  color: var(--red);
+  margin-bottom: 8px;
 }
 
 .forgotten-title {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 24px;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
 }
 
 .forgotten-desc {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-secondary);
-  line-height: 1.65;
-  margin-bottom: 18px;
+  line-height: 1.7;
+  margin-bottom: 24px;
   font-weight: 300;
-}
-
-.forgotten-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 10px;
-}
-
-.forgotten-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  cursor: pointer;
-}
-
-.forgotten-item input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
-  border: 1.5px solid var(--accent-border);
-  border-radius: 3px;
-  background: var(--surface);
-  cursor: pointer;
-  flex-shrink: 0;
-  margin-top: 1px;
-  position: relative;
-  transition: border-color 150ms ease, background 150ms ease;
-}
-
-.forgotten-item input[type="checkbox"]:checked {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.forgotten-item input[type="checkbox"]:checked::after {
-  content: '';
-  position: absolute;
-  top: 1px;
-  left: 4px;
-  width: 5px;
-  height: 9px;
-  border: 2px solid white;
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg);
-}
-
-.forgotten-item label {
-  font-size: 13px;
-  color: var(--text-primary);
-  cursor: pointer;
-  line-height: 1.45;
-  font-weight: 300;
+  max-width: 600px;
 }
 
 /* ── VERDICT ── */
 .verdict-block {
-  border: 2px solid var(--border-strong);
+  border: 1px solid var(--border-mid);
   border-radius: 4px;
-  padding: 28px 32px;
-  margin-bottom: 48px;
+  padding: 40px 44px;
+  margin-bottom: 56px;
   background: var(--surface);
-  transition: border-color 400ms ease;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out), border-color 400ms ease;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), border-color 400ms ease, background 400ms ease;
 }
 
 .verdict-block.visible { opacity: 1; transform: translateY(0); }
-.verdict-block.level-ok { border-color: var(--green); }
-.verdict-block.level-mid { border-color: var(--border-strong); }
-.verdict-block.level-high { border-color: var(--accent); }
-.verdict-block.level-max { border-color: var(--accent); background: var(--accent-bg); }
+.verdict-block.level-ok { border-color: var(--green-border); background: var(--green-dim); }
+.verdict-block.level-mid { border-color: var(--border-mid); }
+.verdict-block.level-high { border-color: var(--accent-border); background: var(--accent-dim); }
+.verdict-block.level-max { border-color: var(--red-border); background: var(--red-dim); }
 
 .verdict-eyebrow {
   font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
   color: var(--text-muted);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .verdict-figure {
   font-family: var(--font-mono);
-  font-size: 44px;
+  font-size: 64px;
   font-weight: 500;
   color: var(--text-primary);
   line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   transition: color 300ms ease;
+  letter-spacing: -0.02em;
 }
 
 .verdict-block.level-high .verdict-figure,
-.verdict-block.level-max .verdict-figure { color: var(--accent); }
+.verdict-block.level-mid .verdict-figure { color: var(--accent); }
+.verdict-block.level-max .verdict-figure { color: var(--red); }
 .verdict-block.level-ok .verdict-figure { color: var(--green); }
 
 .verdict-subline {
-  font-size: 15px;
+  font-size: 16px;
   color: var(--text-secondary);
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   font-weight: 300;
+}
+
+.verdict-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 24px;
 }
 
 .verdict-quote {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-secondary);
-  line-height: 1.75;
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
+  line-height: 1.8;
 }
 
 /* ── STEPS ── */
 .steps-block {
-  margin-bottom: 48px;
+  margin-bottom: 56px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
 .steps-block.visible { opacity: 1; transform: translateY(0); }
 
 .steps-heading {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 400;
   color: var(--text-primary);
-  border-bottom: 1.5px solid var(--text-primary);
-  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-mid);
+  padding-bottom: 16px;
   margin-bottom: 0;
+  letter-spacing: -0.01em;
 }
 
 .step-item {
-  display: flex;
-  gap: 20px;
-  padding: 15px 0;
-  border-bottom: 0.5px solid var(--border);
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 0;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
 }
 
 .step-item:last-child { border-bottom: none; }
 
 .step-num {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  color: var(--text-muted);
-  min-width: 24px;
+  color: var(--accent);
   padding-top: 3px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .step-body {
-  font-size: 14px;
-  color: var(--text-primary);
-  line-height: 1.7;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.75;
   font-weight: 300;
 }
 
@@ -537,12 +525,12 @@ h1 em {
 
 /* ── FRANK CLOSE ── */
 .frank-close {
-  border-top: 2px solid var(--text-primary);
-  padding-top: 28px;
-  margin-bottom: 32px;
+  border-top: 1px solid var(--border-mid);
+  padding-top: 40px;
+  margin-bottom: 40px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
 .frank-close.visible { opacity: 1; transform: translateY(0); }
@@ -550,28 +538,29 @@ h1 em {
 .frank-quote {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 18px;
+  font-size: 20px;
   color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 16px;
+  line-height: 1.85;
+  margin-bottom: 24px;
+  max-width: 780px;
 }
 
 .frank-byline {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .frank-line {
   height: 1px;
-  width: 24px;
+  width: 28px;
   background: var(--accent);
 }
 
 .frank-sig {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
 }
@@ -581,13 +570,13 @@ h1 em {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 20px;
-  border-top: 0.5px solid var(--border);
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
 }
 
 .footer-tagline {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -597,33 +586,117 @@ h1 em {
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   background: none;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border-mid);
   border-radius: 3px;
-  padding: 7px 16px;
+  padding: 9px 20px;
   cursor: pointer;
-  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms var(--ease-spring);
+  letter-spacing: 0.04em;
+  transition: border-color 150ms ease, color 150ms ease, transform 150ms var(--ease-spring);
 }
 
 .reset-btn:hover {
-  background: var(--surface);
-  border-color: var(--text-secondary);
-  color: var(--text-primary);
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
 }
 
 .reset-btn:active { transform: scale(0.97); }
 
+/* ── SCORE STRIP FOOTER (top reset) ── */
+.score-strip-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.score-strip-footer.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.reset-btn-top {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 7px 16px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color 150ms ease, color 150ms ease, transform 150ms var(--ease-spring);
+}
+
+.reset-btn-top:hover {
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
+}
+
+.reset-btn-top:active { transform: scale(0.97); }
+
+/* ── DIMMED score values until active ── */
+.score-value {
+  transition: color 300ms ease, opacity 300ms ease;
+}
+
+.score-value:not(.active) {
+  opacity: 0.25;
+}
+
+/* ── FORGOTTEN LIST (no checkboxes) ── */
+.forgotten-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0;
+}
+
+.forgotten-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.forgotten-list-item::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* ── SECTION CATEGORIES CONTAINER ── */
+#categories-container {
+  margin-bottom: 0;
+}
+
 /* ── RESPONSIVE ── */
-@media (max-width: 580px) {
-  .container { padding: 0 18px; }
-  h1 { font-size: 30px; }
-  .score-bar { grid-template-columns: 1fr 1fr; }
-  .score-bar .score-card:last-child { grid-column: 1 / -1; }
-  .sub-row { grid-template-columns: 1fr; gap: 10px; }
+@media (max-width: 700px) {
+  .container { padding: 0 20px; }
+  .header-grid { grid-template-columns: 1fr; gap: 24px; }
+  h1 { font-size: 36px; }
+  .score-strip { grid-template-columns: 1fr; border-bottom: none; }
+  .score-cell { border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .score-cell:nth-child(2), .score-cell:last-child { padding-left: 0; }
+  .score-value { font-size: 28px; }
+  .sub-row { grid-template-columns: 1fr; gap: 12px; margin: 0; padding-left: 0; padding-right: 0; }
   .price-col { flex-direction: row; align-items: center; }
-  .verdict-figure { font-size: 34px; }
-  .forgotten-grid { grid-template-columns: 1fr; }
+  .verdict-figure { font-size: 44px; }
+  .verdict-block { padding: 28px 24px; }
+  .forgotten-block { padding: 24px 20px; }
+  .step-item { grid-template-columns: 40px 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -638,31 +711,39 @@ h1 em {
 
 <header class="site-header">
   <div class="container">
-    <div class="header-kicker">
-      <div class="kicker-line"></div>
-      <span class="kicker-text">Frankly Finance — Free Resource</span>
+    <div class="header-inner">
+      <div class="header-kicker">
+        <div class="kicker-line"></div>
+        <span class="kicker-text">Frankly Finance — Free Resource</span>
+      </div>
+      <div class="header-grid">
+        <h1>The <em>Subscription<br>Audit</em><br>Checklist</h1>
+        <p class="header-intro">Pull up your bank statement. Enter your monthly cost for every recurring charge you find. See what it actually costs per year. Then decide which ones you'd consciously sign up for again — from scratch, today.</p>
+      </div>
     </div>
-    <h1>The <em>Subscription</em><br>Audit Checklist</h1>
-    <p class="header-intro">Pull up your bank statement. Enter your monthly cost for every recurring charge you find. See what it actually costs you per year. Then decide which ones you'd consciously sign up for again — from scratch, today.</p>
+
+    <div class="score-strip">
+      <div class="score-cell" id="card-monthly">
+        <div class="score-label">Monthly total</div>
+        <div class="score-value live" id="monthly-total">$0.00</div>
+      </div>
+      <div class="score-cell" id="card-annual">
+        <div class="score-label">Annual total</div>
+        <div class="score-value live" id="annual-total">$0</div>
+      </div>
+      <div class="score-cell">
+        <div class="score-label">Marked to cancel</div>
+        <div class="score-value saved" id="cancel-count">$0 saved / yr</div>
+      </div>
+    </div>
+
+    <div class="score-strip-footer" id="score-strip-footer">
+      <button class="reset-btn-top" onclick="resetAll()">Reset checklist</button>
+    </div>
   </div>
 </header>
 
 <main class="container">
-
-  <div class="score-bar">
-    <div class="score-card" id="card-monthly">
-      <div class="score-label">Monthly total</div>
-      <div class="score-value live" id="monthly-total">$0.00</div>
-    </div>
-    <div class="score-card" id="card-annual">
-      <div class="score-label">Annual total</div>
-      <div class="score-value live" id="annual-total">$0</div>
-    </div>
-    <div class="score-card">
-      <div class="score-label">Marked to cancel</div>
-      <div class="score-value saved" id="cancel-count">$0 saved / yr</div>
-    </div>
-  </div>
 
   <div id="categories-container"></div>
 
@@ -670,13 +751,14 @@ h1 em {
     <div class="forgotten-kicker">Watch out</div>
     <div class="forgotten-title">The ones people forget about</div>
     <p class="forgotten-desc">Check your bank statement specifically for these. They tend to hide in plain sight — often as annual lump charges that land once and disappear from memory until the next year.</p>
-    <div class="forgotten-grid" id="forgotten-grid"></div>
+    <div class="forgotten-list" id="forgotten-grid"></div>
   </div>
 
   <div class="verdict-block" id="verdict-block">
     <div class="verdict-eyebrow">Your subscription picture</div>
-    <div class="verdict-figure" id="verdict-figure">$0<span style="font-size:22px;opacity:0.5"> /mo</span></div>
+    <div class="verdict-figure" id="verdict-figure">$0<span style="font-size:28px;opacity:0.4"> /mo</span></div>
     <div class="verdict-subline" id="verdict-subline">That's $0 per year.</div>
+    <div class="verdict-divider"></div>
     <div class="verdict-quote" id="verdict-quote">Enter your subscriptions above to see Frank's verdict.</div>
   </div>
 
@@ -721,7 +803,7 @@ h1 em {
   </div>
 
   <div class="footer-bar">
-    <span class="footer-tagline">franklyfinance.netlify.app</span>
+    <span class="footer-tagline">frankly-finance.github.io</span>
     <button class="reset-btn" onclick="resetAll()">Reset checklist</button>
   </div>
 
@@ -817,8 +899,8 @@ const FORGOTTEN = [
 ];
 
 const VERDICTS = [
-  { min: 0,    max: 0,    level: '',         quote: "Enter your subscriptions above to see Frank's verdict." },
-  { min: 0.01, max: 25,   level: 'level-ok', quote: "Not bad. You're either genuinely intentional about this, or you haven't found them all yet. Check the forgotten list above." },
+  { min: 0,    max: 0,    level: '',          quote: "Enter your subscriptions above to see Frank's verdict." },
+  { min: 0.01, max: 25,   level: 'level-ok',  quote: "Not bad. You're either genuinely intentional about this, or you haven't found them all yet. Check the forgotten list above." },
   { min: 25,   max: 50,   level: 'level-mid', quote: "You're in the normal range — which is not a compliment. 'Normal' just means everyone around you is doing the same thing. The question is whether each one is earning its spot." },
   { min: 50,   max: 100,  level: 'level-high', quote: "You're spending a meaningful amount on subscriptions. At least some of these are running on inertia. The honest question: if they all cancelled tomorrow, which ones would you actually notice missing?" },
   { min: 100,  max: Infinity, level: 'level-max', quote: "That's real money. Think about what this number looks like invested over ten years. Then decide which ones are actually worth it." }
@@ -847,11 +929,11 @@ function buildUI() {
         <div class="check-col">
           <label class="check-row keep-row">
             <input type="checkbox" id="keep-${key}">
-            <span style="font-size:12px;color:var(--text-secondary)">Keep</span>
+            <span>Keep</span>
           </label>
           <label class="check-row cancel-row">
             <input type="checkbox" id="cancel-${key}">
-            <span style="font-size:12px;color:var(--text-secondary)">Cancel</span>
+            <span>Cancel</span>
           </label>
         </div>
         <div class="sub-info">
@@ -871,11 +953,10 @@ function buildUI() {
   });
 
   const fg = document.getElementById('forgotten-grid');
-  FORGOTTEN.forEach((f, i) => {
+  FORGOTTEN.forEach((f) => {
     const div = document.createElement('div');
-    div.className = 'forgotten-item';
-    const id = `forg-${i}`;
-    div.innerHTML = `<input type="checkbox" id="${id}"><label for="${id}">${f}</label>`;
+    div.className = 'forgotten-list-item';
+    div.textContent = f;
     fg.appendChild(div);
   });
 
@@ -901,7 +982,10 @@ function updateSectionSubtotal(ci) {
   let total = 0;
   CATS[ci].items.forEach((_, ii) => { total += prices[`${ci}-${ii}`] || 0; });
   const el = document.getElementById(`subtotal-${ci}`);
-  if (el) el.textContent = total > 0 ? `$${total.toFixed(2)} / mo` : '$0 / mo';
+  if (el) {
+    el.textContent = total > 0 ? `$${total.toFixed(2)} / mo` : '$0 / mo';
+    el.classList.toggle('has-value', total > 0);
+  }
 }
 
 function toggleCancel(key, checked) {
@@ -940,24 +1024,28 @@ function recalc() {
   const annual = monthly * 12;
   const cancelAnnual = cancelMonthly * 12;
 
-  document.getElementById('monthly-total').textContent = `$${monthly.toFixed(2)}`;
-  document.getElementById('annual-total').textContent = `$${Math.round(annual).toLocaleString()}`;
-  document.getElementById('cancel-count').textContent = cancelAnnual > 0
-    ? `$${Math.round(cancelAnnual).toLocaleString()} saved / yr`
-    : '$0 saved / yr';
+  const monthlyEl = document.getElementById('monthly-total');
+  const annualEl = document.getElementById('annual-total');
+  const cancelEl = document.getElementById('cancel-count');
+
+  monthlyEl.textContent = `$${monthly.toFixed(2)}`;
+  monthlyEl.classList.toggle('active', monthly > 0);
+  annualEl.textContent = `$${Math.round(annual).toLocaleString()}`;
+  annualEl.classList.toggle('active', annual > 0);
+  cancelEl.textContent = cancelAnnual > 0 ? `$${Math.round(cancelAnnual).toLocaleString()} saved / yr` : '$0 saved / yr';
+  cancelEl.classList.toggle('active', cancelAnnual > 0);
+
+  const hasData = monthly > 0 || Object.values(cancelFlags).some(Boolean) || Object.values(keepFlags).some(Boolean);
+  document.getElementById('score-strip-footer').classList.toggle('visible', hasData);
 
   const figEl = document.getElementById('verdict-figure');
-  figEl.innerHTML = `$${monthly.toFixed(2)}<span style="font-size:22px;opacity:0.5"> /mo</span>`;
+  figEl.innerHTML = `$${monthly.toFixed(2)}<span style="font-size:28px;opacity:0.4"> /mo</span>`;
   document.getElementById('verdict-subline').textContent = `That's $${Math.round(annual).toLocaleString()} per year.`;
 
   const verdict = VERDICTS.find(v => monthly >= v.min && monthly < v.max) || VERDICTS[0];
   document.getElementById('verdict-quote').textContent = verdict.quote;
   const vb = document.getElementById('verdict-block');
   vb.className = 'verdict-block visible ' + verdict.level;
-
-  const hot = monthly > 50;
-  document.getElementById('card-monthly').classList.toggle('hot', hot);
-  document.getElementById('card-annual').classList.toggle('hot', hot);
 }
 
 function resetAll() {
@@ -976,19 +1064,20 @@ function resetAll() {
   });
   CATS.forEach((_, ci) => {
     const el = document.getElementById(`subtotal-${ci}`);
-    if (el) el.textContent = '$0 / mo';
+    if (el) { el.textContent = '$0 / mo'; el.classList.remove('has-value'); }
   });
-  document.querySelectorAll('[id^="forg-"]').forEach(el => el.checked = false);
+  document.getElementById('score-strip-footer').classList.remove('visible');
   document.getElementById('monthly-total').textContent = '$0.00';
+  document.getElementById('monthly-total').classList.remove('active');
   document.getElementById('annual-total').textContent = '$0';
+  document.getElementById('annual-total').classList.remove('active');
   document.getElementById('cancel-count').textContent = '$0 saved / yr';
-  document.getElementById('verdict-figure').innerHTML = '$0<span style="font-size:22px;opacity:0.5"> /mo</span>';
+  document.getElementById('cancel-count').classList.remove('active');
+  document.getElementById('verdict-figure').innerHTML = '$0<span style="font-size:28px;opacity:0.4"> /mo</span>';
   document.getElementById('verdict-subline').textContent = "That's $0 per year.";
   document.getElementById('verdict-quote').textContent = "Enter your subscriptions above to see Frank's verdict.";
   const vb = document.getElementById('verdict-block');
   vb.className = 'verdict-block visible';
-  document.getElementById('card-monthly').classList.remove('hot');
-  document.getElementById('card-annual').classList.remove('hot');
 }
 
 function initReveal() {
@@ -996,11 +1085,11 @@ function initReveal() {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        setTimeout(() => entry.target.classList.add('visible'), i * 50);
         obs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.06 });
   targets.forEach(el => obs.observe(el));
 }
 
