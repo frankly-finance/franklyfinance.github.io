@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscription Audit Checklist — Frankly Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:              #f7f4ef;
+  --surface:         #ffffff;
+  --surface-2:       #f0ece5;
+  --border:          #ddd6cc;
+  --border-strong:   #c8bfb4;
+  --text-primary:    #1a1208;
+  --text-secondary:  #6b5e4e;
+  --text-muted:      #a09080;
+  --accent:          #c41a1a;
+  --accent-bg:       #fef2f2;
+  --accent-border:   #f5c0c0;
+  --green:           #1a5c38;
+  --green-bg:        #f0f7f3;
+  --green-border:    #b8ddc8;
+  --font-display:    'DM Serif Display', Georgia, serif;
+  --font-body:       'DM Sans', system-ui, sans-serif;
+  --font-mono:       'JetBrains Mono', monospace;
+  --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ── HEADER ── */
+.site-header {
+  padding: 52px 0 36px;
+  border-bottom: 2px solid var(--text-primary);
+  margin-bottom: 44px;
+}
+
+.header-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.kicker-line {
+  height: 1px;
+  width: 32px;
+  background: var(--accent);
+}
+
+.kicker-text {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.header-intro {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 560px;
+  font-weight: 300;
+}
+
+/* ── SCORE BAR ── */
+.score-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.score-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 20px;
+  transition: border-color 250ms ease;
+}
+
+.score-card.hot { border-color: var(--accent); }
+
+.score-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.score-value {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: color 300ms ease;
+}
+
+.score-value.live { color: var(--accent); }
+.score-value.saved { color: var(--green); }
+
+/* ── SECTIONS ── */
+.audit-section {
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+}
+
+.audit-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.section-subtotal {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.section-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 8px 0 4px;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: 0;
+}
+
+/* ── ROWS ── */
+.sub-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 96px;
+  gap: 16px;
+  align-items: start;
+  padding: 13px 0;
+  border-bottom: 0.5px solid var(--border);
+  transition: background 150ms ease;
+  border-radius: 3px;
+}
+
+.sub-row:last-child { border-bottom: none; }
+.sub-row:hover { background: rgba(26,18,8,0.025); }
+.sub-row.is-cancelled { opacity: 0.55; }
+.sub-row.is-kept { background: rgba(26,92,56,0.04); }
+
+.check-col {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-top: 3px;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.check-row label {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  transition: color 150ms ease;
+}
+
+.check-row:hover label { color: var(--text-primary); }
+
+.check-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 3px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms var(--ease-spring);
+}
+
+.check-row input[type="checkbox"]:checked {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+.check-row.cancel-row input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.check-row.keep-row input[type="checkbox"]:checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.check-row input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.sub-info { min-width: 0; }
+
+.sub-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+  line-height: 1.35;
+}
+
+.sub-tip {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.price-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.price-input {
+  width: 90px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 7px 10px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  text-align: right;
+  outline: none;
+  transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
+}
+
+.price-input:focus {
+  border-color: var(--text-primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(26,18,8,0.08);
+}
+
+.price-input::placeholder { color: var(--text-muted); }
+
+.price-annual {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: color 200ms ease;
+}
+
+.price-annual.has-value { color: var(--text-secondary); }
+
+/* ── FORGOTTEN ── */
+.forgotten-block {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 22px 26px;
+  margin-bottom: 44px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+}
+
+.forgotten-block.visible { opacity: 1; transform: translateY(0); }
+
+.forgotten-kicker {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.forgotten-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.forgotten-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+
+.forgotten-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.forgotten-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  cursor: pointer;
+}
+
+.forgotten-item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--accent-border);
+  border-radius: 3px;
+  background: var(--surface);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  position: relative;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.forgotten-item input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.forgotten-item input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.forgotten-item label {
+  font-size: 13px;
+  color: var(--text-primary);
+  cursor: pointer;
+  line-height: 1.45;
+  font-weight: 300;
+}
+
+/* ── VERDICT ── */
+.verdict-block {
+  border: 2px solid var(--border-strong);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin-bottom: 48px;
+  background: var(--surface);
+  transition: border-color 400ms ease;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out), border-color 400ms ease;
+}
+
+.verdict-block.visible { opacity: 1; transform: translateY(0); }
+.verdict-block.level-ok { border-color: var(--green); }
+.verdict-block.level-mid { border-color: var(--border-strong); }
+.verdict-block.level-high { border-color: var(--accent); }
+.verdict-block.level-max { border-color: var(--accent); background: var(--accent-bg); }
+
+.verdict-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.verdict-figure {
+  font-family: var(--font-mono);
+  font-size: 44px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 6px;
+  transition: color 300ms ease;
+}
+
+.verdict-block.level-high .verdict-figure,
+.verdict-block.level-max .verdict-figure { color: var(--accent); }
+.verdict-block.level-ok .verdict-figure { color: var(--green); }
+
+.verdict-subline {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.verdict-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
+/* ── STEPS ── */
+.steps-block {
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+}
+
+.steps-block.visible { opacity: 1; transform: translateY(0); }
+
+.steps-heading {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-primary);
+  border-bottom: 1.5px solid var(--text-primary);
+  padding-bottom: 12px;
+  margin-bottom: 0;
+}
+
+.step-item {
+  display: flex;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 0.5px solid var(--border);
+  align-items: flex-start;
+}
+
+.step-item:last-child { border-bottom: none; }
+
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  min-width: 24px;
+  padding-top: 3px;
+  letter-spacing: 0.05em;
+}
+
+.step-body {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.step-body strong {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.step-body em {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── FRANK CLOSE ── */
+.frank-close {
+  border-top: 2px solid var(--text-primary);
+  padding-top: 28px;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+}
+
+.frank-close.visible { opacity: 1; transform: translateY(0); }
+
+.frank-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.frank-byline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.frank-line {
+  height: 1px;
+  width: 24px;
+  background: var(--accent);
+}
+
+.frank-sig {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── FOOTER BAR ── */
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 0.5px solid var(--border);
+}
+
+.footer-tagline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.reset-btn {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms var(--ease-spring);
+}
+
+.reset-btn:hover {
+  background: var(--surface);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.reset-btn:active { transform: scale(0.97); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 580px) {
+  .container { padding: 0 18px; }
+  h1 { font-size: 30px; }
+  .score-bar { grid-template-columns: 1fr 1fr; }
+  .score-bar .score-card:last-child { grid-column: 1 / -1; }
+  .sub-row { grid-template-columns: 1fr; gap: 10px; }
+  .price-col { flex-direction: row; align-items: center; }
+  .verdict-figure { font-size: 34px; }
+  .forgotten-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audit-section, .forgotten-block, .verdict-block, .steps-block, .frank-close {
+    opacity: 1; transform: none; transition: none;
+  }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-kicker">
+      <div class="kicker-line"></div>
+      <span class="kicker-text">Frankly Finance — Free Resource</span>
+    </div>
+    <h1>The <em>Subscription</em><br>Audit Checklist</h1>
+    <p class="header-intro">Pull up your bank statement. Enter your monthly cost for every recurring charge you find. See what it actually costs you per year. Then decide which ones you'd consciously sign up for again — from scratch, today.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="score-bar">
+    <div class="score-card" id="card-monthly">
+      <div class="score-label">Monthly total</div>
+      <div class="score-value live" id="monthly-total">$0.00</div>
+    </div>
+    <div class="score-card" id="card-annual">
+      <div class="score-label">Annual total</div>
+      <div class="score-value live" id="annual-total">$0</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Marked to cancel</div>
+      <div class="score-value saved" id="cancel-count">$0 saved / yr</div>
+    </div>
+  </div>
+
+  <div id="categories-container"></div>
+
+  <div class="forgotten-block" id="forgotten-block">
+    <div class="forgotten-kicker">Watch out</div>
+    <div class="forgotten-title">The ones people forget about</div>
+    <p class="forgotten-desc">Check your bank statement specifically for these. They tend to hide in plain sight — often as annual lump charges that land once and disappear from memory until the next year.</p>
+    <div class="forgotten-grid" id="forgotten-grid"></div>
+  </div>
+
+  <div class="verdict-block" id="verdict-block">
+    <div class="verdict-eyebrow">Your subscription picture</div>
+    <div class="verdict-figure" id="verdict-figure">$0<span style="font-size:22px;opacity:0.5"> /mo</span></div>
+    <div class="verdict-subline" id="verdict-subline">That's $0 per year.</div>
+    <div class="verdict-quote" id="verdict-quote">Enter your subscriptions above to see Frank's verdict.</div>
+  </div>
+
+  <div class="steps-block" id="steps-block">
+    <div class="steps-heading">How to run this audit properly</div>
+    <div class="step-item">
+      <div class="step-num">01</div>
+      <div class="step-body">Open your bank or credit card statement for the last 30 days. Find every recurring charge — monthly, annual, weekly, anything. <em>Don't go from memory. Go from the statement. You will find something you forgot about.</em></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">02</div>
+      <div class="step-body">Enter the monthly cost for every subscription you find. For annual subscriptions, divide by 12 and enter that. <em>The annual column calculates automatically.</em></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">03</div>
+      <div class="step-body">For each one, ask a single question: <strong>if this subscription didn't exist and I had to sign up again today, would I?</strong> If the answer is no, or "I'm not sure," mark it for cancellation. <em>Uncertainty counts as a no.</em></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">04</div>
+      <div class="step-body">Check the "forgotten" list above. These are the charges that don't fit neatly into any category but quietly keep running. At least one of them will apply to you.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">05</div>
+      <div class="step-body"><strong>Cancel the ones marked for cancellation before you close this tab.</strong> Not tomorrow. Now. Most services make cancellation deliberately inconvenient — expect a retention offer. Decline it unless it's meaningfully cheaper for something you genuinely use.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">06</div>
+      <div class="step-body">For subscriptions you're keeping, check whether a lower tier covers everything you actually use. Streaming, cloud storage, and software tools frequently default you to the mid-tier plan on signup. <em>You probably don't need the features you're paying for.</em></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">07</div>
+      <div class="step-body">Set a calendar reminder to repeat this in 12 months. New subscriptions accumulate. They always do.</div>
+    </div>
+  </div>
+
+  <div class="frank-close" id="frank-close">
+    <p class="frank-quote">"The goal isn't zero subscriptions. The goal is no subscriptions you've forgotten about, no subscriptions you're keeping out of inertia, and no subscriptions you'd be embarrassed to admit you're still paying for. That's a different standard than 'I use it sometimes.' Be honest with yourself. Your bank statement already knows."</p>
+    <div class="frank-byline">
+      <div class="frank-line"></div>
+      <span class="frank-sig">Frankly Finance &nbsp;·&nbsp; Frankly, this is finance.</span>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span class="footer-tagline">franklyfinance.netlify.app</span>
+    <button class="reset-btn" onclick="resetAll()">Reset checklist</button>
+  </div>
+
+</main>
+
+<script>
+const CATS = [
+  {
+    name: "Streaming — Video",
+    note: "Do you actually watch all of these, or do you rotate between them and forget to cancel?",
+    items: [
+      { name: "Netflix", tip: "Check which plan you're on. Standard vs. Premium is often $6–8/month extra for features you may not use." },
+      { name: "Disney+", tip: "Often bundled with Hulu and ESPN+. Are you using all three, or just one of them?" },
+      { name: "Amazon Prime", tip: "Includes video, but you may be paying primarily for shipping. Decide which job it's actually doing for you." },
+      { name: "Apple TV+", tip: "Frequently free with device purchases and often forgotten. Check if yours is still in a trial period." },
+      { name: "Crave / HBO Max", tip: "Higher-priced tiers include live sports or 4K. Are you actively using either of those features?" },
+      { name: "YouTube Premium", tip: "Ad-free YouTube + background play. If you mostly watch on desktop with an ad blocker, you may not need this." },
+      { name: "Other streaming", tip: "Paramount+, Peacock, DAZN, Hayu, BritBox, Shudder — specialty services accumulate fast." }
+    ]
+  },
+  {
+    name: "Streaming — Music & Audio",
+    note: "Usually cheaper individually, but they add up.",
+    items: [
+      { name: "Spotify", tip: "Individual, Duo, Family — if you're sharing an account on an Individual plan, Family is almost always cheaper per person." },
+      { name: "Apple Music", tip: "If you're also paying for Apple One, check you're not double-paying for music." },
+      { name: "Audible / Audiobooks", tip: "Check how many unused credits you have. More than two means you're not consuming at the rate you're paying for." },
+      { name: "Podcast app (paid)", tip: "Pocket Casts, Overcast Premium, etc. Most podcast apps are fine on the free tier. Do you use the paid features?" }
+    ]
+  },
+  {
+    name: "Software & Productivity",
+    note: "Easiest category to overpay in. Software defaults you to mid-tier plans you probably don't need.",
+    items: [
+      { name: "Microsoft 365", tip: "Personal vs. Family. If multiple people use it, Family is cheaper per person. Solo user? Personal is sufficient." },
+      { name: "Adobe Creative Cloud", tip: "One of the most expensive recurring subscriptions. Using the full suite, or just one app? A single-app plan is significantly cheaper." },
+      { name: "Google One / iCloud+", tip: "Storage upgrades. Check how much you're actually using — you may be on a tier with significant unused headroom." },
+      { name: "Password manager", tip: "1Password, LastPass, Dashlane. Some have free tiers that cover individual use adequately." },
+      { name: "VPN", tip: "ExpressVPN, NordVPN, Surfshark. Annual plans show up as a large lump charge once a year — easy to forget entirely." },
+      { name: "Other apps & tools", tip: "Notion, Dropbox, Canva, Grammarly, ChatGPT Plus — list every paid app on your phone or in your browser." }
+    ]
+  },
+  {
+    name: "Health & Fitness",
+    note: "Gym memberships are the textbook example of paying for motivation rather than actual use.",
+    items: [
+      { name: "Gym membership", tip: "Fewer than 8 visits per month? You're paying a high cost per visit. Some gyms offer pay-per-visit alternatives worth comparing." },
+      { name: "Fitness app (paid)", tip: "Peloton, Nike Training, Strava, MyFitnessPal Premium. These are easy to sign up for in January." },
+      { name: "Meditation / wellness app", tip: "Calm, Headspace, BetterMe. High-churn category — people use them intensely for a month, then stop." }
+    ]
+  },
+  {
+    name: "Food & Delivery",
+    note: "Membership fees only make sense if you order frequently enough to break even on the fee itself.",
+    items: [
+      { name: "DashPass / Uber One", tip: "DashPass is $9.99/month ($120/year). You need roughly 6–8 orders per month for the savings to break even against paying delivery fees individually." },
+      { name: "Meal kit service", tip: "HelloFresh, Goodfood, EveryPlate — often started during promotions and forgotten. These can be $60–120/month." },
+      { name: "Grocery delivery membership", tip: "Instacart+, Amazon Fresh. Only worth the membership fee if you're ordering weekly or more." }
+    ]
+  },
+  {
+    name: "News & Reading",
+    note: "Most people read heavily from one or two sources and barely open the rest.",
+    items: [
+      { name: "News subscriptions", tip: "NYT, Globe and Mail, The Atlantic, WSJ — each is $10–25/month. Three of these is potentially $600/year in news alone." },
+      { name: "Magazines / Substack", tip: "List every paid Substack specifically — they accumulate silently and autorenew annually." }
+    ]
+  },
+  {
+    name: "Finance & Insurance Add-ons",
+    note: "These often come bundled with other accounts and get overlooked because they're on different statements.",
+    items: [
+      { name: "Credit monitoring service", tip: "Many banks include this for free. If you're paying separately, you may already have it elsewhere." },
+      { name: "Extended warranty / protection plan", tip: "Often auto-renewed on electronics or appliances. Check if the item is still covered, still in use, or even still in your possession." },
+      { name: "Premium banking account", tip: "Some accounts charge monthly fees for features like overdraft protection or travel insurance. Check if you're actually using any of them." }
+    ]
+  }
+];
+
+const FORGOTTEN = [
+  "Free trial that quietly expired",
+  "Annual software renewal (lump sum)",
+  "Old domain or web hosting",
+  "App you deleted but never cancelled",
+  "Kids' app or game subscription",
+  "Dating app",
+  "Stock photo or font service",
+  "Old cloud backup service",
+  "Alumni association fee",
+  "Professional membership or association",
+  "Online course platform (Skillshare, Coursera+)",
+  "Roadside assistance (separate from insurance)"
+];
+
+const VERDICTS = [
+  { min: 0,    max: 0,    level: '',         quote: "Enter your subscriptions above to see Frank's verdict." },
+  { min: 0.01, max: 25,   level: 'level-ok', quote: "Not bad. You're either genuinely intentional about this, or you haven't found them all yet. Check the forgotten list above." },
+  { min: 25,   max: 50,   level: 'level-mid', quote: "You're in the normal range — which is not a compliment. 'Normal' just means everyone around you is doing the same thing. The question is whether each one is earning its spot." },
+  { min: 50,   max: 100,  level: 'level-high', quote: "You're spending a meaningful amount on subscriptions. At least some of these are running on inertia. The honest question: if they all cancelled tomorrow, which ones would you actually notice missing?" },
+  { min: 100,  max: Infinity, level: 'level-max', quote: "That's real money. Think about what this number looks like invested over ten years. Then decide which ones are actually worth it." }
+];
+
+let prices = {}, cancelFlags = {}, keepFlags = {};
+
+function buildUI() {
+  const container = document.getElementById('categories-container');
+  CATS.forEach((cat, ci) => {
+    const sec = document.createElement('div');
+    sec.className = 'audit-section';
+    sec.innerHTML = `
+      <div class="section-header">
+        <span class="section-title">${cat.name}</span>
+        <span class="section-subtotal" id="subtotal-${ci}">$0 / mo</span>
+      </div>
+      <div class="section-note">${cat.note}</div>`;
+    cat.items.forEach((item, ii) => {
+      const key = `${ci}-${ii}`;
+      prices[key] = 0; cancelFlags[key] = false; keepFlags[key] = false;
+      const row = document.createElement('div');
+      row.className = 'sub-row';
+      row.id = `row-${key}`;
+      row.innerHTML = `
+        <div class="check-col">
+          <label class="check-row keep-row">
+            <input type="checkbox" id="keep-${key}">
+            <span style="font-size:12px;color:var(--text-secondary)">Keep</span>
+          </label>
+          <label class="check-row cancel-row">
+            <input type="checkbox" id="cancel-${key}">
+            <span style="font-size:12px;color:var(--text-secondary)">Cancel</span>
+          </label>
+        </div>
+        <div class="sub-info">
+          <div class="sub-name">${item.name}</div>
+          <div class="sub-tip">${item.tip}</div>
+        </div>
+        <div class="price-col">
+          <input class="price-input" type="number" min="0" step="0.01" placeholder="0.00" id="price-${key}" aria-label="${item.name} monthly cost in dollars">
+          <div class="price-annual" id="annual-${key}">— / yr</div>
+        </div>`;
+      row.querySelector(`#keep-${key}`).addEventListener('change', e => toggleKeep(key, e.target.checked));
+      row.querySelector(`#cancel-${key}`).addEventListener('change', e => toggleCancel(key, e.target.checked));
+      row.querySelector(`#price-${key}`).addEventListener('input', e => updatePrice(key, ci, e.target.value));
+      sec.appendChild(row);
+    });
+    container.appendChild(sec);
+  });
+
+  const fg = document.getElementById('forgotten-grid');
+  FORGOTTEN.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'forgotten-item';
+    const id = `forg-${i}`;
+    div.innerHTML = `<input type="checkbox" id="${id}"><label for="${id}">${f}</label>`;
+    fg.appendChild(div);
+  });
+
+  initReveal();
+}
+
+function updatePrice(key, ci, val) {
+  const monthly = parseFloat(val) || 0;
+  prices[key] = monthly;
+  const annualEl = document.getElementById(`annual-${key}`);
+  if (monthly > 0) {
+    annualEl.textContent = `$${(monthly * 12).toFixed(2)} / yr`;
+    annualEl.classList.add('has-value');
+  } else {
+    annualEl.textContent = '— / yr';
+    annualEl.classList.remove('has-value');
+  }
+  updateSectionSubtotal(ci);
+  recalc();
+}
+
+function updateSectionSubtotal(ci) {
+  let total = 0;
+  CATS[ci].items.forEach((_, ii) => { total += prices[`${ci}-${ii}`] || 0; });
+  const el = document.getElementById(`subtotal-${ci}`);
+  if (el) el.textContent = total > 0 ? `$${total.toFixed(2)} / mo` : '$0 / mo';
+}
+
+function toggleCancel(key, checked) {
+  cancelFlags[key] = checked;
+  if (checked) {
+    keepFlags[key] = false;
+    document.getElementById(`keep-${key}`).checked = false;
+  }
+  updateRowState(key);
+  recalc();
+}
+
+function toggleKeep(key, checked) {
+  keepFlags[key] = checked;
+  if (checked) {
+    cancelFlags[key] = false;
+    document.getElementById(`cancel-${key}`).checked = false;
+  }
+  updateRowState(key);
+  recalc();
+}
+
+function updateRowState(key) {
+  const row = document.getElementById(`row-${key}`);
+  if (!row) return;
+  row.classList.toggle('is-cancelled', cancelFlags[key]);
+  row.classList.toggle('is-kept', keepFlags[key]);
+}
+
+function recalc() {
+  let monthly = 0, cancelMonthly = 0;
+  Object.keys(prices).forEach(k => {
+    monthly += prices[k];
+    if (cancelFlags[k]) cancelMonthly += prices[k];
+  });
+  const annual = monthly * 12;
+  const cancelAnnual = cancelMonthly * 12;
+
+  document.getElementById('monthly-total').textContent = `$${monthly.toFixed(2)}`;
+  document.getElementById('annual-total').textContent = `$${Math.round(annual).toLocaleString()}`;
+  document.getElementById('cancel-count').textContent = cancelAnnual > 0
+    ? `$${Math.round(cancelAnnual).toLocaleString()} saved / yr`
+    : '$0 saved / yr';
+
+  const figEl = document.getElementById('verdict-figure');
+  figEl.innerHTML = `$${monthly.toFixed(2)}<span style="font-size:22px;opacity:0.5"> /mo</span>`;
+  document.getElementById('verdict-subline').textContent = `That's $${Math.round(annual).toLocaleString()} per year.`;
+
+  const verdict = VERDICTS.find(v => monthly >= v.min && monthly < v.max) || VERDICTS[0];
+  document.getElementById('verdict-quote').textContent = verdict.quote;
+  const vb = document.getElementById('verdict-block');
+  vb.className = 'verdict-block visible ' + verdict.level;
+
+  const hot = monthly > 50;
+  document.getElementById('card-monthly').classList.toggle('hot', hot);
+  document.getElementById('card-annual').classList.toggle('hot', hot);
+}
+
+function resetAll() {
+  Object.keys(prices).forEach(k => {
+    prices[k] = 0; cancelFlags[k] = false; keepFlags[k] = false;
+    const p = document.getElementById(`price-${k}`);
+    const a = document.getElementById(`annual-${k}`);
+    const kp = document.getElementById(`keep-${k}`);
+    const ca = document.getElementById(`cancel-${k}`);
+    const row = document.getElementById(`row-${k}`);
+    if (p) p.value = '';
+    if (a) { a.textContent = '— / yr'; a.classList.remove('has-value'); }
+    if (kp) kp.checked = false;
+    if (ca) ca.checked = false;
+    if (row) { row.classList.remove('is-cancelled', 'is-kept'); }
+  });
+  CATS.forEach((_, ci) => {
+    const el = document.getElementById(`subtotal-${ci}`);
+    if (el) el.textContent = '$0 / mo';
+  });
+  document.querySelectorAll('[id^="forg-"]').forEach(el => el.checked = false);
+  document.getElementById('monthly-total').textContent = '$0.00';
+  document.getElementById('annual-total').textContent = '$0';
+  document.getElementById('cancel-count').textContent = '$0 saved / yr';
+  document.getElementById('verdict-figure').innerHTML = '$0<span style="font-size:22px;opacity:0.5"> /mo</span>';
+  document.getElementById('verdict-subline').textContent = "That's $0 per year.";
+  document.getElementById('verdict-quote').textContent = "Enter your subscriptions above to see Frank's verdict.";
+  const vb = document.getElementById('verdict-block');
+  vb.className = 'verdict-block visible';
+  document.getElementById('card-monthly').classList.remove('hot');
+  document.getElementById('card-annual').classList.remove('hot');
+}
+
+function initReveal() {
+  const targets = document.querySelectorAll('.audit-section, .forgotten-block, .verdict-block, .steps-block, .frank-close');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  targets.forEach(el => obs.observe(el));
+}
+
+buildUI();
+</script>
+</body>
+</html>
