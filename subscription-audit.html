@@ -216,9 +216,9 @@ h1 em {
 /* ── ROWS ── */
 .sub-row {
   display: grid;
-  grid-template-columns: 140px 1fr 110px;
+  grid-template-columns: 80px 1fr 110px;
   gap: 24px;
-  align-items: start;
+  align-items: center;
   padding: 16px 0;
   border-bottom: 1px solid var(--border);
   transition: background 150ms ease;
@@ -230,15 +230,12 @@ h1 em {
 
 .sub-row:last-child { border-bottom: none; }
 .sub-row:hover { background: var(--surface); }
-.sub-row.is-cancelled { opacity: 0.4; }
-.sub-row.is-kept { background: var(--green-dim); }
-.sub-row.is-cancelled.is-kept { background: transparent; }
+.sub-row.is-cancelled { opacity: 0.35; }
 
 .check-col {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-top: 4px;
+  align-items: center;
+  padding-top: 0;
 }
 
 .check-row {
@@ -249,13 +246,12 @@ h1 em {
 }
 
 .check-row label {
-  font-size: 12px;
   font-weight: 400;
   color: var(--text-muted);
   cursor: pointer;
   user-select: none;
   transition: color 150ms ease;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   font-size: 10px;
 }
@@ -276,20 +272,10 @@ h1 em {
   transition: border-color 150ms ease, background 150ms ease, transform 150ms var(--ease-spring);
 }
 
-.check-row input[type="checkbox"]:checked {
-  background: var(--text-primary);
-  border-color: var(--text-primary);
-  transform: scale(1.05);
-}
-
 .check-row.cancel-row input[type="checkbox"]:checked {
   background: var(--red);
   border-color: var(--red);
-}
-
-.check-row.keep-row input[type="checkbox"]:checked {
-  background: var(--green);
-  border-color: var(--green);
+  transform: scale(1.05);
 }
 
 .check-row input[type="checkbox"]:checked::after {
@@ -362,12 +348,8 @@ h1 em {
 
 /* ── FORGOTTEN ── */
 .forgotten-block {
-  border: 1px solid var(--red-border);
-  border-left: 3px solid var(--red);
-  border-radius: 4px;
-  padding: 32px 36px;
-  margin: 56px 0;
-  background: var(--red-dim);
+  border-top: 1px solid var(--border-mid);
+  padding: 48px 0 56px;
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
@@ -375,30 +357,16 @@ h1 em {
 
 .forgotten-block.visible { opacity: 1; transform: translateY(0); }
 
-.forgotten-kicker {
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--red);
-  margin-bottom: 8px;
-}
-
 .forgotten-title {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 20px;
   color: var(--text-primary);
-  margin-bottom: 10px;
+  margin-bottom: 24px;
   letter-spacing: -0.01em;
 }
 
 .forgotten-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 24px;
-  font-weight: 300;
-  max-width: 600px;
+  display: none;
 }
 
 /* ── VERDICT ── */
@@ -460,9 +428,9 @@ h1 em {
 .verdict-quote {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 17px;
-  color: var(--text-secondary);
-  line-height: 1.8;
+  font-size: 22px;
+  color: var(--text-primary);
+  line-height: 1.7;
 }
 
 /* ── STEPS ── */
@@ -563,6 +531,132 @@ h1 em {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
+}
+
+/* ── FOLLOW-THROUGH ── */
+.follow-block {
+  border-top: 1px solid var(--border-mid);
+  padding-top: 48px;
+  margin-bottom: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.follow-block.visible { opacity: 1; transform: translateY(0); }
+
+.follow-card {
+  padding: 28px 32px;
+  border: 1px solid var(--border-mid);
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+.follow-card-kicker {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.follow-card-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.follow-card-body {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.follow-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: gap 200ms var(--ease-spring);
+}
+
+.follow-card-link:hover { gap: 12px; }
+
+.follow-card-link::after {
+  content: '→';
+  font-size: 14px;
+}
+
+.follow-card.newsletter {
+  border-color: var(--accent-border);
+  background: var(--accent-dim);
+}
+
+/* ── BACK TO TOP ── */
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  background: var(--surface-3);
+  border: 1px solid var(--border-mid);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease, background 150ms ease, transform 150ms var(--ease-spring), border-color 150ms ease;
+  z-index: 100;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.back-to-top:active { transform: scale(0.93); }
+
+.back-to-top svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 150ms ease;
+}
+
+.back-to-top:hover svg { stroke: var(--text-secondary); }
+
+/* ── HIDE SCROLLBAR ── */
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
 }
 
 /* ── FOOTER BAR ── */
@@ -697,10 +791,11 @@ h1 em {
   .verdict-block { padding: 28px 24px; }
   .forgotten-block { padding: 24px 20px; }
   .step-item { grid-template-columns: 40px 1fr; }
+  .follow-block { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .audit-section, .forgotten-block, .verdict-block, .steps-block, .frank-close {
+  .audit-section, .forgotten-block, .verdict-block, .steps-block, .frank-close, .follow-block {
     opacity: 1; transform: none; transition: none;
   }
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
@@ -718,7 +813,7 @@ h1 em {
       </div>
       <div class="header-grid">
         <h1>The <em>Subscription<br>Audit</em><br>Checklist</h1>
-        <p class="header-intro">Pull up your bank statement. Enter your monthly cost for every recurring charge you find. See what it actually costs per year. Then decide which ones you'd consciously sign up for again — from scratch, today.</p>
+        <p class="header-intro">Pull up your bank statement. Enter the monthly cost for every recurring charge you find. Mark anything you'd cancel. The tool does the math — you'll see the annual damage in real time.</p>
       </div>
     </div>
 
@@ -748,9 +843,7 @@ h1 em {
   <div id="categories-container"></div>
 
   <div class="forgotten-block" id="forgotten-block">
-    <div class="forgotten-kicker">Watch out</div>
-    <div class="forgotten-title">The ones people forget about</div>
-    <p class="forgotten-desc">Check your bank statement specifically for these. They tend to hide in plain sight — often as annual lump charges that land once and disappear from memory until the next year.</p>
+    <div class="forgotten-title">Also check your statement for these</div>
     <div class="forgotten-list" id="forgotten-grid"></div>
   </div>
 
@@ -802,12 +895,31 @@ h1 em {
     </div>
   </div>
 
+  <div class="follow-block" id="follow-block">
+    <div class="follow-card">
+      <div class="follow-card-kicker">Watch the video</div>
+      <div class="follow-card-title">Why you'll never feel like you have enough money</div>
+      <p class="follow-card-body">The subscriptions are a symptom. The video explains the mechanism behind why it keeps happening — and why cutting them alone won't fix it.</p>
+      <a href="YOUR_VIDEO_URL" class="follow-card-link" target="_blank" rel="noopener">Watch on YouTube</a>
+    </div>
+    <div class="follow-card newsletter">
+      <div class="follow-card-kicker">More from Frankly Finance</div>
+      <div class="follow-card-title">Watch the rest of the channel</div>
+      <p class="follow-card-body">More videos on why money works the way it does — and why your instincts about it are usually wrong.</p>
+      <a href="https://www.youtube.com/@FranklyFinanceOfficial" class="follow-card-link" target="_blank" rel="noopener">Browse the channel</a>
+    </div>
+  </div>
+
   <div class="footer-bar">
-    <span class="footer-tagline">frankly-finance.github.io</span>
+    <span class="footer-tagline">franklyfinance.github.io</span>
     <button class="reset-btn" onclick="resetAll()">Reset checklist</button>
   </div>
 
 </main>
+
+<button class="back-to-top" id="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
 
 <script>
 const CATS = [
@@ -815,7 +927,7 @@ const CATS = [
     name: "Streaming — Video",
     note: "Do you actually watch all of these, or do you rotate between them and forget to cancel?",
     items: [
-      { name: "Netflix", tip: "Check which plan you're on. Standard vs. Premium is often $6–8/month extra for features you may not use." },
+      { name: "Netflix", tip: "Check which plan you're on. Standard vs. Premium is a meaningful monthly gap — Premium adds 4K and extra streams. If you're watching alone on one screen in 1080p, you don't need Premium." },
       { name: "Disney+", tip: "Often bundled with Hulu and ESPN+. Are you using all three, or just one of them?" },
       { name: "Amazon Prime", tip: "Includes video, but you may be paying primarily for shipping. Decide which job it's actually doing for you." },
       { name: "Apple TV+", tip: "Frequently free with device purchases and often forgotten. Check if yours is still in a trial period." },
@@ -831,7 +943,7 @@ const CATS = [
       { name: "Spotify", tip: "Individual, Duo, Family — if you're sharing an account on an Individual plan, Family is almost always cheaper per person." },
       { name: "Apple Music", tip: "If you're also paying for Apple One, check you're not double-paying for music." },
       { name: "Audible / Audiobooks", tip: "Check how many unused credits you have. More than two means you're not consuming at the rate you're paying for." },
-      { name: "Podcast app (paid)", tip: "Pocket Casts, Overcast Premium, etc. Most podcast apps are fine on the free tier. Do you use the paid features?" }
+      { name: "Podcast app (paid)", tip: "Pocket Casts and similar. Most podcast apps are fully functional on the free tier — check if you're actually using any paid features." }
     ]
   },
   {
@@ -851,16 +963,16 @@ const CATS = [
     note: "Gym memberships are the textbook example of paying for motivation rather than actual use.",
     items: [
       { name: "Gym membership", tip: "Fewer than 8 visits per month? You're paying a high cost per visit. Some gyms offer pay-per-visit alternatives worth comparing." },
-      { name: "Fitness app (paid)", tip: "Peloton, Nike Training, Strava, MyFitnessPal Premium. These are easy to sign up for in January." },
-      { name: "Meditation / wellness app", tip: "Calm, Headspace, BetterMe. High-churn category — people use them intensely for a month, then stop." }
+      { name: "Fitness app (paid)", tip: "Peloton, Strava, MyFitnessPal Premium — easy to sign up for in January. Check your app store subscriptions specifically; these often hide there." },
+      { name: "Meditation / wellness app", tip: "Calm, Headspace, BetterMe. High-churn category — people use them intensely for a month, then stop. Annual plans autorenew silently." }
     ]
   },
   {
     name: "Food & Delivery",
     note: "Membership fees only make sense if you order frequently enough to break even on the fee itself.",
     items: [
-      { name: "DashPass / Uber One", tip: "DashPass is $9.99/month ($120/year). You need roughly 6–8 orders per month for the savings to break even against paying delivery fees individually." },
-      { name: "Meal kit service", tip: "HelloFresh, Goodfood, EveryPlate — often started during promotions and forgotten. These can be $60–120/month." },
+      { name: "DashPass / Uber One", tip: "DashPass runs $9.99/month or $96/year on the annual plan. It breaks even at roughly 2–3 orders per month — if you're ordering less than that, you're paying for the membership, not saving on it." },
+      { name: "Meal kit service", tip: "HelloFresh, Goodfood, EveryPlate — often started during promotions and forgotten. A typical two-person plan runs $180–$300/month once the intro discount expires." },
       { name: "Grocery delivery membership", tip: "Instacart+, Amazon Fresh. Only worth the membership fee if you're ordering weekly or more." }
     ]
   },
@@ -868,7 +980,7 @@ const CATS = [
     name: "News & Reading",
     note: "Most people read heavily from one or two sources and barely open the rest.",
     items: [
-      { name: "News subscriptions", tip: "NYT, Globe and Mail, The Atlantic, WSJ — each is $10–25/month. Three of these is potentially $600/year in news alone." },
+      { name: "News subscriptions", tip: "NYT, Globe and Mail, The Atlantic, WSJ — prices range from $10 to $40+/month at standard rates. Two or three of these is easily $500–$700/year in news alone." },
       { name: "Magazines / Substack", tip: "List every paid Substack specifically — they accumulate silently and autorenew annually." }
     ]
   },
@@ -906,7 +1018,7 @@ const VERDICTS = [
   { min: 100,  max: Infinity, level: 'level-max', quote: "That's real money. Think about what this number looks like invested over ten years. Then decide which ones are actually worth it." }
 ];
 
-let prices = {}, cancelFlags = {}, keepFlags = {};
+let prices = {}, cancelFlags = {};
 
 function buildUI() {
   const container = document.getElementById('categories-container');
@@ -921,16 +1033,12 @@ function buildUI() {
       <div class="section-note">${cat.note}</div>`;
     cat.items.forEach((item, ii) => {
       const key = `${ci}-${ii}`;
-      prices[key] = 0; cancelFlags[key] = false; keepFlags[key] = false;
+      prices[key] = 0; cancelFlags[key] = false;
       const row = document.createElement('div');
       row.className = 'sub-row';
       row.id = `row-${key}`;
       row.innerHTML = `
         <div class="check-col">
-          <label class="check-row keep-row">
-            <input type="checkbox" id="keep-${key}">
-            <span>Keep</span>
-          </label>
           <label class="check-row cancel-row">
             <input type="checkbox" id="cancel-${key}">
             <span>Cancel</span>
@@ -944,7 +1052,6 @@ function buildUI() {
           <input class="price-input" type="number" min="0" step="0.01" placeholder="0.00" id="price-${key}" aria-label="${item.name} monthly cost in dollars">
           <div class="price-annual" id="annual-${key}">— / yr</div>
         </div>`;
-      row.querySelector(`#keep-${key}`).addEventListener('change', e => toggleKeep(key, e.target.checked));
       row.querySelector(`#cancel-${key}`).addEventListener('change', e => toggleCancel(key, e.target.checked));
       row.querySelector(`#price-${key}`).addEventListener('input', e => updatePrice(key, ci, e.target.value));
       sec.appendChild(row);
@@ -990,20 +1097,6 @@ function updateSectionSubtotal(ci) {
 
 function toggleCancel(key, checked) {
   cancelFlags[key] = checked;
-  if (checked) {
-    keepFlags[key] = false;
-    document.getElementById(`keep-${key}`).checked = false;
-  }
-  updateRowState(key);
-  recalc();
-}
-
-function toggleKeep(key, checked) {
-  keepFlags[key] = checked;
-  if (checked) {
-    cancelFlags[key] = false;
-    document.getElementById(`cancel-${key}`).checked = false;
-  }
   updateRowState(key);
   recalc();
 }
@@ -1012,7 +1105,6 @@ function updateRowState(key) {
   const row = document.getElementById(`row-${key}`);
   if (!row) return;
   row.classList.toggle('is-cancelled', cancelFlags[key]);
-  row.classList.toggle('is-kept', keepFlags[key]);
 }
 
 function recalc() {
@@ -1035,7 +1127,7 @@ function recalc() {
   cancelEl.textContent = cancelAnnual > 0 ? `$${Math.round(cancelAnnual).toLocaleString()} saved / yr` : '$0 saved / yr';
   cancelEl.classList.toggle('active', cancelAnnual > 0);
 
-  const hasData = monthly > 0 || Object.values(cancelFlags).some(Boolean) || Object.values(keepFlags).some(Boolean);
+  const hasData = monthly > 0 || Object.values(cancelFlags).some(Boolean);
   document.getElementById('score-strip-footer').classList.toggle('visible', hasData);
 
   const figEl = document.getElementById('verdict-figure');
@@ -1048,25 +1140,28 @@ function recalc() {
   vb.className = 'verdict-block visible ' + verdict.level;
 }
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function resetAll() {
   Object.keys(prices).forEach(k => {
-    prices[k] = 0; cancelFlags[k] = false; keepFlags[k] = false;
+    prices[k] = 0; cancelFlags[k] = false;
     const p = document.getElementById(`price-${k}`);
     const a = document.getElementById(`annual-${k}`);
-    const kp = document.getElementById(`keep-${k}`);
     const ca = document.getElementById(`cancel-${k}`);
     const row = document.getElementById(`row-${k}`);
     if (p) p.value = '';
     if (a) { a.textContent = '— / yr'; a.classList.remove('has-value'); }
-    if (kp) kp.checked = false;
     if (ca) ca.checked = false;
-    if (row) { row.classList.remove('is-cancelled', 'is-kept'); }
+    if (row) { row.classList.remove('is-cancelled'); }
   });
   CATS.forEach((_, ci) => {
     const el = document.getElementById(`subtotal-${ci}`);
     if (el) { el.textContent = '$0 / mo'; el.classList.remove('has-value'); }
   });
   document.getElementById('score-strip-footer').classList.remove('visible');
+  scrollToTop();
   document.getElementById('monthly-total').textContent = '$0.00';
   document.getElementById('monthly-total').classList.remove('active');
   document.getElementById('annual-total').textContent = '$0';
@@ -1081,7 +1176,7 @@ function resetAll() {
 }
 
 function initReveal() {
-  const targets = document.querySelectorAll('.audit-section, .forgotten-block, .verdict-block, .steps-block, .frank-close');
+  const targets = document.querySelectorAll('.audit-section, .forgotten-block, .verdict-block, .steps-block, .frank-close, .follow-block');
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -1092,6 +1187,12 @@ function initReveal() {
   }, { threshold: 0.06 });
   targets.forEach(el => obs.observe(el));
 }
+
+// Back-to-top visibility
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('back-to-top');
+  if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
 
 buildUI();
 </script>
